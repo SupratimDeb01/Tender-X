@@ -32,7 +32,8 @@ export const API_PATHS = {
     CREATE: "/api/po",             // POST
     GET_ALL: "/api/po",            // GET
     GET_BY_ID: (id) => `/api/po/${id}`, // GET
-    DOWNLOAD: (id) => `/api/po/${id}/download` // GET for downloading PO (if implemented)
+    DOWNLOAD: (id) => `/api/po/${id}/download`, // GET for downloading PO (if implemented)
+    UPDATE_PAYMENT_STATUS: (id) => `/api/po/${id}/payment-status` // PUT
   },
 
   //   GRN: {

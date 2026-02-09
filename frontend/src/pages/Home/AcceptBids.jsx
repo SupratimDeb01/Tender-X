@@ -83,6 +83,22 @@ const AcceptBids = () => {
     );
   };
 
+  // Handle payment status update
+  const handlePaymentUpdate = async (poId) => {
+    try {
+      await axiosInstance.put(API_PATHS.PO.UPDATE_PAYMENT_STATUS(poId), {
+        status: "Paid",
+      });
+      toast.success("Payment marked as received");
+      
+      // Refresh accepted bids to reflect changes
+      fetchAcceptedBids();
+    } catch (error) {
+      console.error("Error updating payment status:", error);
+      toast.error("Failed to update payment status");
+    }
+  };
+
   return (
     <DashboardLayout>
       <Toaster position="bottom-center" reverseOrder={false} />
@@ -104,6 +120,7 @@ const AcceptBids = () => {
         <div className="grid grid-cols-1 gap-4">
           {acceptedBids.map((bid) => {
             const invoice = getInvoiceForPO(bid.po?._id);
+            const po = bid.po;
 
             return (
               <Card key={bid._id} className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -131,37 +148,63 @@ const AcceptBids = () => {
                       <span className="font-medium text-slate-900">${bid.total}</span>
                     </div>
                   </div>
+
+                  {/* Payment Status Badge */}
+                  <div className="mt-3">
+                    <span className="text-xs text-slate-400 uppercase tracking-wider mr-2">Payment Status:</span>
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                      po?.paymentStatus === 'Paid' 
+                        ? 'bg-blue-100 text-blue-700' 
+                        : 'bg-yellow-100 text-yellow-700'
+                    }`}>
+                      {po?.paymentStatus || "Pending"}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex flex-wrap gap-3 w-full md:w-auto justify-end">
-                  {invoice ? (
-                    <>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => downloadInvoice(invoice._id)}
-                        className="gap-2"
-                      >
-                        <MdFileDownload className="text-lg" />
-                        Invoice
-                      </Button>
-
-                      {invoice.status === "verified" && (
+                <div className="flex flex-col items-end gap-2 w-full md:w-auto">
+                  <div className="flex flex-wrap gap-2 justify-end">
+                    {invoice ? (
+                      <>
                         <Button
-                          variant="ghost"
+                          variant="outline"
                           size="sm"
-                          disabled
-                          className="gap-2 text-green-600 bg-green-50"
+                          onClick={() => downloadInvoice(invoice._id)}
+                          className="gap-2"
                         >
-                          <MdVerified className="text-lg" />
-                          Verified
+                          <MdFileDownload className="text-lg" />
+                          Invoice
                         </Button>
-                      )}
-                    </>
-                  ) : (
-                    <span className="text-sm text-slate-400 italic px-3 py-1.5 bg-slate-50 rounded-md border border-slate-100">
-                      Invoice pending
-                    </span>
+
+                        {invoice.status === "verified" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            disabled
+                            className="gap-2 text-green-600 bg-green-50"
+                          >
+                            <MdVerified className="text-lg" />
+                            Verified
+                          </Button>
+                        )}
+                      </>
+                    ) : (
+                      <span className="text-sm text-slate-400 italic px-3 py-1.5 bg-slate-50 rounded-md border border-slate-100">
+                        Invoice pending
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Mark as Paid Button */}
+                  {po && po.paymentStatus !== "Paid" && (
+                     <Button
+                       variant="primary"
+                       size="sm"
+                       onClick={() => handlePaymentUpdate(po._id)}
+                       className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white"
+                     >
+                       Mark Payment Received
+                     </Button>
                   )}
                 </div>
               </Card>

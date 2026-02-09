@@ -75,8 +75,8 @@ const downloadPO = async (req, res) => {
               <th>Total</th>
             </tr>
             ${po.items
-              .map(
-                item => `
+        .map(
+          item => `
                 <tr>
                   <td>${item.description}</td>
                   <td>${item.quantity}</td>
@@ -84,8 +84,8 @@ const downloadPO = async (req, res) => {
                   <td>${(item.quantity * item.unitPrice).toFixed(2)}</td>
                 </tr>
               `
-              )
-              .join("")}
+        )
+        .join("")}
           </table>
           <p class="total">Grand Total: ${po.totalAmount.toFixed(2)}</p>
         </body>
@@ -113,9 +113,36 @@ const downloadPO = async (req, res) => {
   }
 };
 
+// Update Payment Status (Manufacturer action)
+const updatePaymentStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!["Pending", "Paid"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    const po = await PO.findById(req.params.id);
+    if (!po) return res.status(404).json({ message: "PO not found" });
+
+    // Check if the user is the manufacturer of this PO
+    if (po.manufacturer.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: "Not authorized to update payment status for this PO" });
+    }
+
+    po.paymentStatus = status;
+    await po.save();
+
+    res.json({ message: "Payment status updated", po });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
 module.exports = {
   getPOById,
   getPOsForUser,
   markDelivered,
   downloadPO,
+  updatePaymentStatus
 };

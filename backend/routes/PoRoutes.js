@@ -21,4 +21,8 @@ router.put("/:id/deliver", protect, markDelivered);
 // Download PO as PDF (supplier action)
 router.get("/:id/download", protect, downloadPO);
 
+// Update Payment Status (manufacturer action)
+const { updatePaymentStatus } = require("../controllers/poController");
+router.put("/:id/payment-status", protect, updatePaymentStatus);
+
 module.exports = router;

@@ -34,7 +34,10 @@ const POSchema = new mongoose.Schema({
   status: { type: String, enum: ["issued", "delivered", "closed"], default: "issued" },
 
   // 🔑 Add reference to invoice
-  invoice: { type: mongoose.Schema.Types.ObjectId, ref: "Invoice" }
+  invoice: { type: mongoose.Schema.Types.ObjectId, ref: "Invoice" },
+
+  // 💰 Payment Status
+  paymentStatus: { type: String, enum: ["Pending", "Paid"], default: "Pending" }
 
 }, { timestamps: true });
 

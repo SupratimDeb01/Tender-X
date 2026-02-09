@@ -148,6 +148,17 @@ const SelectedRfqs = () => {
                       <span>Deadline: <span className="font-medium text-slate-700">{rfq.deadline ? new Date(rfq.deadline).toLocaleDateString() : "-"}</span></span>
                       <span>Unit Price: <span className="font-medium text-slate-700">${bid.unitPrice ?? "-"}</span></span>
                       <span>Total Value: <span className="font-medium text-slate-700">${bid.total ?? "-"}</span></span>
+                      
+                      <div className="flex items-center gap-2 ml-2 pl-2 border-l border-slate-200">
+                        <span>Payment:</span>
+                        <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                          (bid.po?.paymentStatus || "Pending") === 'Paid' 
+                            ? 'bg-blue-100 text-blue-700' 
+                            : 'bg-yellow-100 text-yellow-700'
+                        }`}>
+                          {bid.po?.paymentStatus || "Pending"}
+                        </span>
+                      </div>
                     </div>
                   </div>
 

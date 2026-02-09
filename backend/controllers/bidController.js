@@ -162,7 +162,7 @@ const getAcceptedBids = async (req, res) => {
       .populate("supplier", "name email")
       .populate({
         path: "po",
-        select: "_id totalAmount status invoice",
+        select: "_id totalAmount status invoice paymentStatus",
         populate: {
           path: "invoice", // populate invoice
           select: "_id totalAmount status createdAt"
@@ -189,7 +189,7 @@ const getSelectedBidsForSupplier = async (req, res) => {
       })
       .populate({
         path: "po", // <-- populate po so frontend gets PO object (and _id)
-        select: "_id totalAmount status" // include fields you need
+        select: "_id totalAmount status paymentStatus" // include fields you need
       })
       .sort({ createdAt: -1 });
 
