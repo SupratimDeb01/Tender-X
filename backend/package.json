@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Backend API for Tender X: A comprehensive Procurement Management System connecting Buyers and Suppliers.",
   "dependencies": {
     "@google/genai": "^1.8.0",
     "@google/generative-ai": "^0.24.1",
