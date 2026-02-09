@@ -3,7 +3,7 @@
 **Tender X** is an enterprise-grade, web-based Procurement Management System (PMS) designed to streamline and automate the complex lifecycle of supply chain interactions. By bridging the gap between organizations (Buyers) and their vendors (Suppliers), Tender X eliminates manual inefficiencies, ensures transparency, and facilitates data-driven decision-making.
 
 In traditional procurement, the process from identifying a need to paying a supplier is often fragmented across emails, spreadsheets, and paper documents. Tender X centralizes this entire workflow into a single, intuitive platform. It handles everything from raising Requests for Quotation (RFQs), receiving and evaluating competitive bids, issuing Purchase Orders (PO), to processing Invoices and managing payments.
-
+ 
 Built with scalability, security, and user experience in mind, Tender X is the ideal solution for businesses looking to modernize their procurement operations, reduce costs, and build stronger supplier relationships.
 
 ---
