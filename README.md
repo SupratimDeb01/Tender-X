@@ -38,7 +38,7 @@ A dedicated interface for vendors to find and win business.
 *   **Bid Submission**: Securely submit quotes and technical proposals.
 *   **Order Tracking**: Receive and acknowledge Purchase Orders instantly.
 *   **Invoice Generation**: Create and submit digital invoices directly against POs.
-*   **Status Updates**: Real-time notifications for bid acceptance/rejection and payment status.
+*   **Status Updates**: Real-time notifications for bid acceptance/rejection.
 
 ---
 
@@ -49,7 +49,8 @@ A dedicated interface for vendors to find and win business.
 3.  **Evaluation & Award (Buyer)**: The Buyer reviews the bids, compares them, and **Accepts** the best offer.
 4.  **Contracting (System)**: Upon bid acceptance, a **Purchase Order (PO)** is automatically generated and sent to the Supplier.
 5.  **Fulfillment & Billing (Supplier)**: The Supplier delivers the goods and raises an **Invoice** against the PO.
-6.  **Payment & Closure (Buyer)**: The workflow concludes when the payment is processed and the order is marked as complete.
+6.  **Payment Processing (Manual)**: Payments are processed **offline** (e.g., Bank Transfer, Check) outside the system. The Buyer explicitly marks the invoice as "Paid" in the system once the transaction is complete.
+7.  **Order Closure**: The workflow concludes when the payment status is updated and the order is marked as complete.
 
 ---
 
