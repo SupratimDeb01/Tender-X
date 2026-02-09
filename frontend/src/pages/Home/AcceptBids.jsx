@@ -196,7 +196,7 @@ const AcceptBids = () => {
                   </div>
 
                   {/* Mark as Paid Button */}
-                  {po && po.paymentStatus !== "Paid" && (
+                  {/* {po && po.paymentStatus !== "Paid" && (
                      <Button
                        variant="primary"
                        size="sm"
@@ -205,7 +205,7 @@ const AcceptBids = () => {
                      >
                        Mark Payment Received
                      </Button>
-                  )}
+                  )} */}
                 </div>
               </Card>
             );
